@@ -1,0 +1,46 @@
+# Logs
+*.log
+
+# Environment variables
+.env.local
+.env.development
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Model files (if too large)
+*.joblib
+*.pkl
+*.pickle
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local development
+.env.local
