@@ -8,10 +8,22 @@ import logging
 import time
 from datetime import datetime
 from typing import List, Dict, Any, Optional
-import pandas as pd
 import numpy as np
 from prometheus_client import Counter, Histogram, Gauge, start_http_server
-import structlog
+
+# Try to import pandas, fallback if not available
+try:
+    import pandas as pd
+    PANDAS_AVAILABLE = True
+except ImportError:
+    PANDAS_AVAILABLE = False
+    pd = None
+
+# Try to import structlog, fallback to standard logging
+try:
+    import structlog
+except ImportError:
+    structlog = logging
 
 from config import get_settings
 from models.schemas import (
@@ -51,6 +63,8 @@ drift_score = Gauge('lead_scoring_drift_score', 'Current drift score')
 high_priority_leads = Counter('lead_scoring_high_priority_total', 'High priority leads identified')
 
 # Global instances
+settings = get_settings()
+
 app = FastAPI(
     title="Lead Scoring Engine",
     description="Real Estate Lead Scoring API with GBT + LLM Re-ranker",
@@ -59,7 +73,6 @@ app = FastAPI(
     redoc_url="/redoc" if settings.environment != "production" else None
 )
 
-settings = get_settings()
 lead_scoring_model = LeadScoringModel()
 notification_service = NotificationService()
 continuous_learning = ContinuousLearning()
@@ -171,13 +184,16 @@ async def _initialize_demo_model():
             demo_data.append(lead_data)
         
         # Train model
-        df = pd.DataFrame(demo_data)
-        training_results = lead_scoring_model.train(df)
-        
-        # Save model
-        lead_scoring_model.save_model("models/lead_scoring_model.joblib")
-        
-        logger.info(f"Demo model trained successfully. Accuracy: {training_results['test_accuracy']:.4f}")
+        if PANDAS_AVAILABLE:
+            df = pd.DataFrame(demo_data)
+            training_results = lead_scoring_model.train(df)
+            
+            # Save model
+            lead_scoring_model.save_model("models/lead_scoring_model.joblib")
+            
+            logger.info(f"Demo model trained successfully. Accuracy: {training_results['test_accuracy']:.4f}")
+        else:
+            logger.warning("Pandas not available, skipping model training. Using fallback model.")
         
     except Exception as e:
         logger.error(f"Demo model initialization failed: {str(e)}")

@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "main.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "pythonVersion": "3.11"
+      }
     }
   ],
   "routes": [
@@ -15,7 +18,8 @@
   "env": {
     "ENVIRONMENT": "production",
     "REDIS_URL": "",
-    "GROQ_API_KEY": ""
+    "GROQ_API_KEY": "",
+    "PYTHON_VERSION": "3.11"
   },
   "functions": {
     "main.py": {

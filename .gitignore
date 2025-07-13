@@ -2,6 +2,7 @@
 *.log
 
 # Environment variables
+.env
 .env.local
 .env.development
 
@@ -42,5 +43,13 @@ Thumbs.db
 .coverage
 htmlcov/
 
-# Local development
-.env.local
+# API Keys and secrets
+*.key
+*.pem
+
+# Node modules (if any)
+node_modules/
+
+# Build artifacts
+dist/
+build/

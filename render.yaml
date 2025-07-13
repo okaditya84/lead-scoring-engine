@@ -2,8 +2,10 @@ services:
   - type: web
     name: lead-scoring-engine
     env: python
-    buildCommand: pip install -r requirements.txt
+    runtime: python-3.11
+    buildCommand: pip install --upgrade pip && pip install -r requirements-minimal.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    plan: free
     envVars:
       - key: ENVIRONMENT
         value: production
@@ -11,9 +13,8 @@ services:
         sync: false
       - key: REDIS_URL
         value: ""
-    depends_on:
-      - db
-      - redis
+      - key: PYTHON_VERSION
+        value: "3.11.9"
     volumes:
       - ./models:/app/models
       - ./data:/app/data
