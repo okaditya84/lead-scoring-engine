@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'lead-scoring-api'
+    static_configs:
+      - targets: ['lead-scoring-api:9090']
+    scrape_interval: 5s
+    metrics_path: /metrics

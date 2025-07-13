@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Scoring Engine Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --success-color: #16a34a;
+            --warning-color: #d97706;
+            --danger-color: #dc2626;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .dashboard-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            margin: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .score-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .score-display {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .priority-badge {
+            font-size: 1.2rem;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .priority-high { background-color: var(--danger-color); }
+        .priority-medium { background-color: var(--warning-color); }
+        .priority-low { background-color: var(--success-color); }
+        
+        .feature-bar {
+            background: #e5e7eb;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 5px 0;
+        }
+        
+        .feature-fill {
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--success-color) 100%);
+            height: 100%;
+            transition: width 0.8s ease-in-out;
+        }
+        
+        .form-section {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #3b82f6 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .health-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .health-healthy { background-color: var(--success-color); }
+        .health-degraded { background-color: var(--warning-color); }
+        .health-unhealthy { background-color: var(--danger-color); }
+        
+        .stats-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .tab-content {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .nav-pills .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #3b82f6 100%);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="dashboard-container">
+            <!-- Header -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h1 class="display-4 fw-bold text-primary">
+                            <i class="bi bi-graph-up-arrow"></i> Lead Scoring Engine
+                        </h1>
+                        <div class="d-flex align-items-center">
+                            <span id="healthStatus" class="badge bg-secondary">
+                                <span class="health-indicator health-healthy"></span>
+                                System Status
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <ul class="nav nav-pills mb-4" id="mainTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="scoring-tab" data-bs-toggle="pill" data-bs-target="#scoring" type="button" role="tab">
+                        <i class="bi bi-calculator"></i> Lead Scoring
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="batch-tab" data-bs-toggle="pill" data-bs-target="#batch" type="button" role="tab">
+                        <i class="bi bi-list-check"></i> Batch Scoring
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="analytics-tab" data-bs-toggle="pill" data-bs-target="#analytics" type="button" role="tab">
+                        <i class="bi bi-graph-up"></i> Analytics
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="monitoring-tab" data-bs-toggle="pill" data-bs-target="#monitoring" type="button" role="tab">
+                        <i class="bi bi-activity"></i> Monitoring
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="mainTabContent">
+                <!-- Lead Scoring Tab -->
+                <div class="tab-pane fade show active" id="scoring" role="tabpanel">
+                    <div class="row">
+                        <!-- Input Form -->
+                        <div class="col-lg-6">
+                            <h3><i class="bi bi-person-plus"></i> Lead Information</h3>
+                            
+                            <form id="leadForm">
+                                <!-- Basic Info -->
+                                <div class="form-section">
+                                    <h5><i class="bi bi-info-circle"></i> Basic Information</h5>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Lead ID</label>
+                                            <input type="text" class="form-control" id="leadId" placeholder="lead-001" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Source</label>
+                                            <select class="form-select" id="source" required>
+                                                <option value="website">Website</option>
+                                                <option value="social_media">Social Media</option>
+                                                <option value="referral">Referral</option>
+                                                <option value="advertising">Advertising</option>
+                                                <option value="direct">Direct</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Behavioral Data -->
+                                <div class="form-section">
+                                    <h5><i class="bi bi-activity"></i> Behavioral Data</h5>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Property Interactions</label>
+                                            <input type="number" class="form-control" id="propertyInteractions" min="0" max="50" value="5">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Time on Platform (min)</label>
+                                            <input type="number" class="form-control" id="timeOnPlatform" min="0" max="300" value="30">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Property Views</label>
+                                            <input type="number" class="form-control" id="propertyViews" min="0" max="100" value="8">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Search Frequency</label>
+                                            <input type="number" class="form-control" id="searchFrequency" min="0" max="20" value="3">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Contact Attempts</label>
+                                            <input type="number" class="form-control" id="contactAttempts" min="0" max="10" value="1">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Search Specificity</label>
+                                            <input type="range" class="form-range" id="searchSpecificity" min="0" max="1" step="0.1" value="0.5">
+                                            <small class="text-muted">Low to High</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Demographic Data -->
+                                <div class="form-section">
+                                    <h5><i class="bi bi-people"></i> Demographics</h5>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Income Bracket</label>
+                                            <select class="form-select" id="incomeBracket">
+                                                <option value="low">Low</option>
+                                                <option value="medium" selected>Medium</option>
+                                                <option value="high">High</option>
+                                                <option value="premium">Premium</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Age Range</label>
+                                            <select class="form-select" id="ageRange">
+                                                <option value="18-25">18-25</option>
+                                                <option value="26-35" selected>26-35</option>
+                                                <option value="36-45">36-45</option>
+                                                <option value="46-55">46-55</option>
+                                                <option value="55+">55+</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Family Status</label>
+                                            <select class="form-select" id="familyComposition">
+                                                <option value="single">Single</option>
+                                                <option value="couple" selected>Couple</option>
+                                                <option value="family_with_children">Family with Children</option>
+                                                <option value="extended_family">Extended Family</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Location</label>
+                                            <input type="text" class="form-control" id="location" placeholder="e.g., Mumbai" value="Mumbai">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Occupation</label>
+                                            <input type="text" class="form-control" id="occupation" placeholder="e.g., Software Engineer" value="Professional">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Market Data -->
+                                <div class="form-section">
+                                    <h5><i class="bi bi-graph-up"></i> Market Context</h5>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Market Activity</label>
+                                            <select class="form-select" id="marketActivity">
+                                                <option value="low">Low</option>
+                                                <option value="medium" selected>Medium</option>
+                                                <option value="high">High</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Area Development Score</label>
+                                            <input type="range" class="form-range" id="areaScore" min="0" max="1" step="0.1" value="0.7">
+                                            <small class="text-muted">Low to High Development</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary-custom btn-lg w-100">
+                                    <i class="bi bi-calculator"></i> Calculate Lead Score
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Results Display -->
+                        <div class="col-lg-6">
+                            <h3><i class="bi bi-graph-up-arrow"></i> Scoring Results</h3>
+                            
+                            <div id="loadingSpinner" class="loading-spinner">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Calculating...</span>
+                                </div>
+                                <p class="mt-2">Analyzing lead data...</p>
+                            </div>
+
+                            <div id="scoreResults" style="display: none;">
+                                <!-- Score Display -->
+                                <div class="score-card">
+                                    <div class="row align-items-center">
+                                        <div class="col-6">
+                                            <div class="score-display" id="finalScore">--</div>
+                                            <p class="text-center mb-0">Final Score</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <span class="priority-badge" id="priorityBadge">--</span>
+                                            <div class="mt-2">
+                                                <small>Confidence: <span id="confidence">--</span>%</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Score Breakdown -->
+                                <div class="stats-card">
+                                    <h5><i class="bi bi-pie-chart"></i> Score Breakdown</h5>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <small class="text-muted">Base ML Score</small>
+                                            <h6 id="baseScore">--</h6>
+                                        </div>
+                                        <div class="col-6">
+                                            <small class="text-muted">LLM Adjusted</small>
+                                            <h6 id="llmScore">--</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Recommendations -->
+                                <div class="stats-card">
+                                    <h5><i class="bi bi-lightbulb"></i> AI Reasoning</h5>
+                                    <p class="text-muted mb-2" id="reasoning">--</p>
+                                    <div id="recommendations"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Batch Scoring Tab -->
+                <div class="tab-pane fade" id="batch" role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3><i class="bi bi-list-check"></i> Batch Lead Scoring</h3>
+                            <p class="text-muted">Process multiple leads at once for efficient scoring.</p>
+                            
+                            <div class="form-section">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button class="btn btn-primary-custom" onclick="generateSampleBatch()">
+                                            <i class="bi bi-plus-circle"></i> Generate Sample Leads
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="btn btn-success" onclick="processBatch()" disabled id="processBatchBtn">
+                                            <i class="bi bi-play-circle"></i> Process Batch
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="batchResults" class="mt-4" style="display: none;">
+                                <h5>Batch Processing Results</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Lead ID</th>
+                                                <th>Score</th>
+                                                <th>Priority</th>
+                                                <th>Confidence</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="batchTableBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab -->
+                <div class="tab-pane fade" id="analytics" role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3><i class="bi bi-graph-up"></i> Model Analytics</h3>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="stats-card">
+                                        <h5><i class="bi bi-bar-chart"></i> Feature Importance</h5>
+                                        <div id="featureImportance">
+                                            <button class="btn btn-outline-primary" onclick="loadFeatureImportance()">
+                                                Load Feature Analysis
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="stats-card">
+                                        <h5><i class="bi bi-speedometer"></i> Model Performance</h5>
+                                        <div id="modelPerformance">
+                                            <div class="d-flex justify-content-between">
+                                                <span>Training Accuracy:</span>
+                                                <strong class="text-success">94.2%</strong>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Avg Response Time:</span>
+                                                <strong class="text-info">145ms</strong>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Model Status:</span>
+                                                <strong class="text-success">Healthy</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monitoring Tab -->
+                <div class="tab-pane fade" id="monitoring" role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3><i class="bi bi-activity"></i> System Monitoring</h3>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-card">
+                                        <h6><i class="bi bi-heart-pulse"></i> System Health</h6>
+                                        <div id="systemHealth">
+                                            <span class="health-indicator health-healthy"></span>
+                                            <span>Healthy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="stats-card">
+                                        <h6><i class="bi bi-graph-down"></i> Drift Status</h6>
+                                        <div id="driftStatus">
+                                            <span class="text-success">No Drift Detected</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="stats-card">
+                                        <h6><i class="bi bi-cloud"></i> Services</h6>
+                                        <div id="servicesStatus">
+                                            <small>Redis: <span class="text-warning">Fallback</span></small><br>
+                                            <small>LLM: <span class="text-warning">Fallback</span></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="stats-card mt-3">
+                                <h5><i class="bi bi-clock-history"></i> Recent Activity</h5>
+                                <div id="recentActivity">
+                                    <button class="btn btn-outline-primary" onclick="loadSystemMetrics()">
+                                        Refresh Metrics
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

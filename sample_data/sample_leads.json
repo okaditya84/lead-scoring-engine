@@ -1,0 +1,482 @@
+[
+  {
+    "lead_id": "LEAD_0000",
+    "timestamp": "2025-07-13T11:35:05.158186",
+    "source": "referral",
+    "behavioral": {
+      "property_interaction_frequency": 32,
+      "search_query_specificity": 0.845,
+      "time_spent_on_platform": 223,
+      "property_views_count": 22,
+      "search_frequency": 13,
+      "page_depth": 4,
+      "return_visits": 3,
+      "contact_attempts": 2
+    },
+    "demographic": {
+      "income_bracket": "medium",
+      "family_composition": "single",
+      "age_range": "26-35",
+      "occupation": "business_owner",
+      "location": "Bangalore",
+      "preferred_areas": [
+        "Area1",
+        "Area2"
+      ]
+    },
+    "public_data": {
+      "property_price_trends": {
+        "area_1": -0.055
+      },
+      "area_development_score": 0.369,
+      "market_activity_level": "high"
+    },
+    "third_party": {
+      "credit_inquiry_activity": false,
+      "online_ad_engagement": 0.342,
+      "social_media_signals": {
+        "property_posts": 3,
+        "real_estate_follows": 10,
+        "location_checkins": 0
+      }
+    },
+    "contact_info": {
+      "phone": "+917894987261",
+      "email": "lead_0@example.com"
+    },
+    "consent_given": true,
+    "consent_timestamp": "2025-07-13T11:35:05.158186"
+  },
+  {
+    "lead_id": "LEAD_0001",
+    "timestamp": "2025-07-13T11:35:05.158186",
+    "source": "website",
+    "behavioral": {
+      "property_interaction_frequency": 48,
+      "search_query_specificity": 0.974,
+      "time_spent_on_platform": 75,
+      "property_views_count": 11,
+      "search_frequency": 24,
+      "page_depth": 1,
+      "return_visits": 14,
+      "contact_attempts": 5
+    },
+    "demographic": {
+      "income_bracket": "medium",
+      "family_composition": "single",
+      "age_range": "36-45",
+      "occupation": "business_owner",
+      "location": "Mumbai",
+      "preferred_areas": [
+        "Area1",
+        "Area2"
+      ]
+    },
+    "public_data": {
+      "property_price_trends": {
+        "area_1": 0.004
+      },
+      "area_development_score": 0.828,
+      "market_activity_level": "medium"
+    },
+    "third_party": {
+      "credit_inquiry_activity": false,
+      "online_ad_engagement": 0.591,
+      "social_media_signals": {
+        "property_posts": 10,
+        "real_estate_follows": 15,
+        "location_checkins": 5
+      }
+    },
+    "contact_info": {
+      "phone": "+917937143447",
+      "email": "lead_1@example.com"
+    },
+    "consent_given": true,
+    "consent_timestamp": "2025-07-13T11:35:05.158186"
+  },
+  {
+    "lead_id": "LEAD_0002",
+    "timestamp": "2025-07-13T11:35:05.158186",
+    "source": "website",
+    "behavioral": {
+      "property_interaction_frequency": 49,
+      "search_query_specificity": 0.349,
+      "time_spent_on_platform": 132,
+      "property_views_count": 16,
+      "search_frequency": 3,
+      "page_depth": 6,
+      "return_visits": 6,
+      "contact_attempts": 6
+    },
+    "demographic": {
+      "income_bracket": "high",
+      "family_composition": "single",
+      "age_range": "26-35",
+      "occupation": "doctor",
+      "location": "Delhi",
+      "preferred_areas": [
+        "Area1",
+        "Area2"
+      ]
+    },
+    "public_data": {
+      "property_price_trends": {
+        "area_1": -0.038
+      },
+      "area_development_score": 0.721,
+      "market_activity_level": "high"
+    },
+    "third_party": {
+      "credit_inquiry_activity": false,
+      "online_ad_engagement": 0.191,
+      "social_media_signals": {
+        "property_posts": 9,
+        "real_estate_follows": 16,
+        "location_checkins": 4
+      }
+    },
+    "contact_info": {
+      "phone": "+917017300141",
+      "email": "lead_2@example.com"
+    },
+    "consent_given": true,
+    "consent_timestamp": "2025-07-13T11:35:05.158186"
+  },
+  {
+    "lead_id": "LEAD_0003",
+    "timestamp": "2025-07-13T11:35:05.158186",
+    "source": "social_media",
+    "behavioral": {
+      "property_interaction_frequency": 10,
+      "search_query_specificity": 0.448,
+      "time_spent_on_platform": 168,
+      "property_views_count": 19,
+      "search_frequency": 15,
+      "page_depth": 11,
+      "return_visits": 5,
+      "contact_attempts": 5
+    },
+    "demographic": {
+      "income_bracket": "medium",
+      "family_composition": "couple",
+      "age_range": "46-60",
+      "occupation": "doctor",
+      "location": "Mumbai",
+      "preferred_areas": [
+        "Area1",
+        "Area2"
+      ]
+    },
+    "public_data": {
+      "property_price_trends": {
+        "area_1": -0.055
+      },
+      "area_development_score": 0.885,
+      "market_activity_level": "high"
+    },
+    "third_party": {
+      "credit_inquiry_activity": false,
+      "online_ad_engagement": 0.952,
+      "social_media_signals": {
+        "property_posts": 8,
+        "real_estate_follows": 6,
+        "location_checkins": 2
+      }
+    },
+    "contact_info": {
+      "phone": "+917667774934",
+      "email": "lead_3@example.com"
+    },
+    "consent_given": true,
+    "consent_timestamp": "2025-07-13T11:35:05.158186"
+  },
+  {
+    "lead_id": "LEAD_0004",
+    "timestamp": "2025-07-13T11:35:05.158186",
+    "source": "social_media",
+    "behavioral": {
+      "property_interaction_frequency": 21,
+      "search_query_specificity": 0.267,
+      "time_spent_on_platform": 40,
+      "property_views_count": 20,
+      "search_frequency": 20,
+      "page_depth": 9,
+      "return_visits": 1,
+      "contact_attempts": 6
+    },
+    "demographic": {
+      "income_bracket": "low",
+      "family_composition": "family_with_children",
+      "age_range": "60+",
+      "occupation": "software_engineer",
+      "location": "Bangalore",
+      "preferred_areas": [
+        "Area1",
+        "Area2"
+      ]
+    },
+    "public_data": {
+      "property_price_trends": {
+        "area_1": -0.068
+      },
+      "area_development_score": 0.304,
+      "market_activity_level": "high"
+    },
+    "third_party": {
+      "credit_inquiry_activity": false,
+      "online_ad_engagement": 0.932,
+      "social_media_signals": {
+        "property_posts": 6,
+        "real_estate_follows": 10,
+        "location_checkins": 3
+      }
+    },
+    "contact_info": {
+      "phone": "+917197334076",
+      "email": "lead_4@example.com"
+    },
+    "consent_given": true,
+    "consent_timestamp": "2025-07-13T11:35:05.158186"
+  },
+  {
+    "lead_id": "LEAD_0005",
+    "timestamp": "2025-07-13T11:35:05.158186",
+    "source": "referral",
+    "behavioral": {
+      "property_interaction_frequency": 41,
+      "search_query_specificity": 0.572,
+      "time_spent_on_platform": 175,
+      "property_views_count": 18,
+      "search_frequency": 9,
+      "page_depth": 10,
+      "return_visits": 14,
+      "contact_attempts": 0
+    },
+    "demographic": {
+      "income_bracket": "premium",
+      "family_composition": "family_with_children",
+      "age_range": "26-35",
+      "occupation": "business_owner",
+      "location": "Delhi",
+      "preferred_areas": [
+        "Area1",
+        "Area2"
+      ]
+    },
+    "public_data": {
+      "property_price_trends": {
+        "area_1": 0.105
+      },
+      "area_development_score": 0.469,
+      "market_activity_level": "medium"
+    },
+    "third_party": {
+      "credit_inquiry_activity": true,
+      "online_ad_engagement": 0.214,
+      "social_media_signals": {
+        "property_posts": 3,
+        "real_estate_follows": 19,
+        "location_checkins": 1
+      }
+    },
+    "contact_info": {
+      "phone": "+917094620091",
+      "email": "lead_5@example.com"
+    },
+    "consent_given": true,
+    "consent_timestamp": "2025-07-13T11:35:05.158186"
+  },
+  {
+    "lead_id": "LEAD_0006",
+    "timestamp": "2025-07-13T11:35:05.158824",
+    "source": "social_media",
+    "behavioral": {
+      "property_interaction_frequency": 30,
+      "search_query_specificity": 0.898,
+      "time_spent_on_platform": 37,
+      "property_views_count": 20,
+      "search_frequency": 8,
+      "page_depth": 12,
+      "return_visits": 11,
+      "contact_attempts": 2
+    },
+    "demographic": {
+      "income_bracket": "medium",
+      "family_composition": "couple",
+      "age_range": "18-25",
+      "occupation": "doctor",
+      "location": "Mumbai",
+      "preferred_areas": [
+        "Area1",
+        "Area2"
+      ]
+    },
+    "public_data": {
+      "property_price_trends": {
+        "area_1": 0.239
+      },
+      "area_development_score": 0.647,
+      "market_activity_level": "medium"
+    },
+    "third_party": {
+      "credit_inquiry_activity": true,
+      "online_ad_engagement": 0.342,
+      "social_media_signals": {
+        "property_posts": 5,
+        "real_estate_follows": 19,
+        "location_checkins": 13
+      }
+    },
+    "contact_info": {
+      "phone": "+917610352040",
+      "email": "lead_6@example.com"
+    },
+    "consent_given": true,
+    "consent_timestamp": "2025-07-13T11:35:05.158824"
+  },
+  {
+    "lead_id": "LEAD_0007",
+    "timestamp": "2025-07-13T11:35:05.158824",
+    "source": "website",
+    "behavioral": {
+      "property_interaction_frequency": 14,
+      "search_query_specificity": 0.161,
+      "time_spent_on_platform": 190,
+      "property_views_count": 22,
+      "search_frequency": 13,
+      "page_depth": 7,
+      "return_visits": 12,
+      "contact_attempts": 4
+    },
+    "demographic": {
+      "income_bracket": "premium",
+      "family_composition": "single",
+      "age_range": "18-25",
+      "occupation": "software_engineer",
+      "location": "Bangalore",
+      "preferred_areas": [
+        "Area1",
+        "Area2"
+      ]
+    },
+    "public_data": {
+      "property_price_trends": {
+        "area_1": 0.039
+      },
+      "area_development_score": 0.852,
+      "market_activity_level": "medium"
+    },
+    "third_party": {
+      "credit_inquiry_activity": true,
+      "online_ad_engagement": 0.235,
+      "social_media_signals": {
+        "property_posts": 2,
+        "real_estate_follows": 10,
+        "location_checkins": 12
+      }
+    },
+    "contact_info": {
+      "phone": "+918243885237",
+      "email": "lead_7@example.com"
+    },
+    "consent_given": true,
+    "consent_timestamp": "2025-07-13T11:35:05.158824"
+  },
+  {
+    "lead_id": "LEAD_0008",
+    "timestamp": "2025-07-13T11:35:05.158824",
+    "source": "social_media",
+    "behavioral": {
+      "property_interaction_frequency": 2,
+      "search_query_specificity": 0.667,
+      "time_spent_on_platform": 82,
+      "property_views_count": 9,
+      "search_frequency": 19,
+      "page_depth": 1,
+      "return_visits": 7,
+      "contact_attempts": 4
+    },
+    "demographic": {
+      "income_bracket": "premium",
+      "family_composition": "couple",
+      "age_range": "36-45",
+      "occupation": "doctor",
+      "location": "Mumbai",
+      "preferred_areas": [
+        "Area1",
+        "Area2"
+      ]
+    },
+    "public_data": {
+      "property_price_trends": {
+        "area_1": -0.08
+      },
+      "area_development_score": 0.472,
+      "market_activity_level": "medium"
+    },
+    "third_party": {
+      "credit_inquiry_activity": true,
+      "online_ad_engagement": 0.473,
+      "social_media_signals": {
+        "property_posts": 4,
+        "real_estate_follows": 16,
+        "location_checkins": 1
+      }
+    },
+    "contact_info": {
+      "phone": "+917408216110",
+      "email": "lead_8@example.com"
+    },
+    "consent_given": true,
+    "consent_timestamp": "2025-07-13T11:35:05.158824"
+  },
+  {
+    "lead_id": "LEAD_0009",
+    "timestamp": "2025-07-13T11:35:05.158824",
+    "source": "website",
+    "behavioral": {
+      "property_interaction_frequency": 15,
+      "search_query_specificity": 0.817,
+      "time_spent_on_platform": 297,
+      "property_views_count": 18,
+      "search_frequency": 20,
+      "page_depth": 6,
+      "return_visits": 6,
+      "contact_attempts": 2
+    },
+    "demographic": {
+      "income_bracket": "high",
+      "family_composition": "family_with_children",
+      "age_range": "18-25",
+      "occupation": "software_engineer",
+      "location": "Bangalore",
+      "preferred_areas": [
+        "Area1",
+        "Area2"
+      ]
+    },
+    "public_data": {
+      "property_price_trends": {
+        "area_1": -0.07
+      },
+      "area_development_score": 0.395,
+      "market_activity_level": "low"
+    },
+    "third_party": {
+      "credit_inquiry_activity": false,
+      "online_ad_engagement": 0.704,
+      "social_media_signals": {
+        "property_posts": 8,
+        "real_estate_follows": 0,
+        "location_checkins": 8
+      }
+    },
+    "contact_info": {
+      "phone": "+919537784068",
+      "email": "lead_9@example.com"
+    },
+    "consent_given": true,
+    "consent_timestamp": "2025-07-13T11:35:05.158824"
+  }
+]
